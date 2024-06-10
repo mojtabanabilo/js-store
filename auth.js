@@ -1,4 +1,6 @@
 import { postData } from "./utils/httpRequest.js";
+import { setCookie } from "./utils/cookies.js";
+import { authHandler } from "./utils/authorazition.js";
 
 const inputs = document.querySelectorAll("input");
 const loginButton = document.querySelector("button");
@@ -9,7 +11,13 @@ const submitHandler = async (event) => {
     username: inputs[0].value,
     password: inputs[1].value,
   });
-  document.cookie = `token=${response.token}; max-age=${24 * 60 * 60}`;
+  setCookie("token", response.token);
+  location.assign("index.html");
+};
+
+const init = () => {
+  authHandler();
 };
 
 loginButton.addEventListener("click", submitHandler);
+document.addEventListener("DOMContentLoaded", init);
