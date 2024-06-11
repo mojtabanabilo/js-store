@@ -4,9 +4,9 @@ export const authHandler = () => {
   const userState = getCookie();
   if (
     (userState && location.href.includes("auth")) ||
-    location.href.includes("dashboard")
+    (!userState && location.href.includes("dashboard"))
   ) {
-    location.assign("index.html");
+    location.assign("./index.html");
     return false;
   }
 };
