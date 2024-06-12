@@ -4,6 +4,13 @@ import { getData } from "./utils/httpRequest.js";
 const loginButton = document.getElementById("login");
 const dashboardButton = document.getElementById("dashboard");
 const mainContent = document.getElementById("products");
+const searchButton = document.querySelector("button");
+const inputBox = document.querySelector("input");
+const listItems = document.querySelectorAll("li");
+
+let allProducts = null;
+let search = "";
+let category = "all";
 
 const showProducts = (products) => {
   mainContent.innerHTML = "";
@@ -44,8 +51,44 @@ const init = async () => {
     dashboardButton.style.display = "none";
   }
 
-  const allProducts = await getData("products");
+  allProducts = await getData("products");
   showProducts(allProducts);
 };
 
+const filterProduct = () => {
+  const filteredProducts = allProducts.filter((product) => {
+    if (category === "all") {
+      return product.title.toLowerCase().includes(search);
+    } else {
+      return (
+        product.title.toLowerCase().includes(search) &&
+        product.category.toLowerCase() === category
+      );
+    }
+  });
+  showProducts(filteredProducts);
+};
+
+const searchHandler = () => {
+  search = inputBox.value.trim().toLowerCase();
+  console.log(allProducts);
+  filterProduct();
+};
+
+const filterHandler = (event) => {
+  category = event.target.innerText.toLowerCase();
+
+  listItems.forEach((li) => {
+    if (li.innerText.toLowerCase() === category) {
+      li.className = "selected";
+    } else {
+      li.className = "";
+    }
+  });
+
+  filterProduct();
+};
+
 document.addEventListener("DOMContentLoaded", init);
+searchButton.addEventListener("click", searchHandler);
+listItems.forEach((li) => li.addEventListener("click", filterHandler));
