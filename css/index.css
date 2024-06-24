@@ -1,8 +1,9 @@
 header {
   display: flex;
   justify-content: space-between;
-  padding: 30px 0;
+  padding: 30px 20px;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 header h3 {
@@ -27,6 +28,11 @@ header i {
 header a:hover {
   color: #fff;
   background: #000;
+}
+
+#search {
+  width: 100%;
+  padding: 0 20px;
 }
 
 #search h1 {
@@ -61,6 +67,8 @@ header a:hover {
 #container {
   display: flex;
   margin: 80px 0 40px;
+  width: 100%;
+  padding: 0 20px;
 }
 
 #filter {

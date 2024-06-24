@@ -12,7 +12,7 @@ let allProducts = null;
 let search = "";
 let category = "all";
 
-const showProducts = (products) => {
+const renderProducts = (products) => {
   mainContent.innerHTML = "";
 
   products.forEach((product) => {
@@ -52,7 +52,7 @@ const init = async () => {
   }
 
   allProducts = await getData("products");
-  showProducts(allProducts);
+  renderProducts(allProducts);
 };
 
 const filterProduct = () => {
@@ -66,12 +66,11 @@ const filterProduct = () => {
       );
     }
   });
-  showProducts(filteredProducts);
+  renderProducts(filteredProducts);
 };
 
 const searchHandler = () => {
   search = inputBox.value.trim().toLowerCase();
-  console.log(allProducts);
   filterProduct();
 };
 
